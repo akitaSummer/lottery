@@ -13,19 +13,21 @@ CREATE TABLE `lt_user` (
   `sys_created` int unsigned NOT NULL DEFAULT 0 COMMENT '创建时间',
   `sys_updated` int unsigned NOT NULL DEFAULT 0 COMMENT '修改时间',
   `sys_ip` varchar(50) NOT NULL DEFAULT '' COMMENT 'ip地址',
+  `sys_status` smallint unsigned NOT NULL DEFAULT 0 COMMENT '状态，0 正常，1 删除',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 */
 
 type LtUser struct {
-	Id int
-	Username string
-	Blacktime int
-	Realname string
-	Mobile string
-	Address string
+	Id         int
+	Username   string
+	Blacktime  int
+	Realname   string
+	Mobile     string
+	Address    string
 	SysCreated int
 	SysUpdated int
-	SysIp string
+	SysStatus  int
+	SysIp      string
 }
