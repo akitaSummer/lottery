@@ -5,9 +5,11 @@ go 1.15
 require (
 	github.com/ajg/form v1.5.1 // indirect
 	github.com/fasthttp-contrib/websocket v0.0.0-20160511215533-1f3b11f56072 // indirect
+	github.com/go-sql-driver/mysql v1.4.1
 	github.com/go-xorm/cmd v0.0.0-20190426080617-f87981e709a1 // indirect
 	github.com/go-xorm/cmd/xorm v0.0.0-20190426080617-f87981e709a1 // indirect
 	github.com/go-xorm/xorm v0.7.9
+	github.com/gomodule/redigo v1.7.1-0.20190724094224-574c33c3df38
 	github.com/google/go-querystring v1.0.0 // indirect
 	github.com/gorilla/securecookie v1.1.1
 	github.com/imkira/go-interpol v1.1.0 // indirect
