@@ -9,11 +9,12 @@ require (
 	github.com/go-xorm/cmd v0.0.0-20190426080617-f87981e709a1 // indirect
 	github.com/go-xorm/cmd/xorm v0.0.0-20190426080617-f87981e709a1 // indirect
 	github.com/go-xorm/xorm v0.7.9
-	github.com/gomodule/redigo v1.7.1-0.20190724094224-574c33c3df38
+	github.com/gomodule/redigo v1.8.2
 	github.com/google/go-querystring v1.0.0 // indirect
 	github.com/gorilla/securecookie v1.1.1
 	github.com/imkira/go-interpol v1.1.0 // indirect
 	github.com/k0kubun/colorstring v0.0.0-20150214042306-9440f1994b88 // indirect
+	github.com/kataras/iris v0.0.2 // indirect
 	github.com/kataras/iris/v12 v12.1.8
 	github.com/mattn/go-colorable v0.1.8 // indirect
 	github.com/moul/http2curl v1.0.0 // indirect

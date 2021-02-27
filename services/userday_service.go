@@ -5,6 +5,8 @@ import (
 
 	//"lottery/comm"
 	"lottery/dao"
+	"lottery/datasource"
+
 	//"lottery/dataSource"
 	"lottery/models"
 )
@@ -26,7 +28,7 @@ type userDayService struct {
 
 func NewUserDayService() UserDayService {
 	return &userDayService{
-		//dao: dao.NewUserDayDao(dataSource.NewMysqlMaster()),
+		dao: dao.NewUserDayDao(datasource.NewDbMaster()),
 	}
 }
 

@@ -2,6 +2,7 @@ package services
 
 import (
 	"lottery/dao"
+	"lottery/datasource"
 	"lottery/models"
 )
 
@@ -20,7 +21,7 @@ type giftService struct {
 
 func NewGiftService() GiftService {
 	return &giftService{
-		dao: dao.NewGiftDao(nil),
+		dao: dao.NewGiftDao(datasource.NewDbMaster()),
 	}
 }
 

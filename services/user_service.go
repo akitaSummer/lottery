@@ -2,11 +2,13 @@ package services
 
 import (
 	"lottery/dao"
+	"lottery/datasource"
+
 	//"lottery/dataSource"
 	"lottery/models"
 )
 
-type BlackUserService interface {
+type UserService interface {
 	GetAll() []models.LtUser
 	CountAll() int64
 	Get(id int) *models.LtUser
@@ -20,9 +22,9 @@ type userService struct {
 	dao *dao.UserDao
 }
 
-func NewUserService() BlackUserService {
+func NewUserService() UserService {
 	return &userService{
-		//dao: dao.NewBlackUserDao(dataSource.NewMysqlMaster()),
+		dao: dao.NewUserDao(datasource.NewDbMaster()),
 	}
 }
 

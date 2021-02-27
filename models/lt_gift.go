@@ -27,23 +27,23 @@ CREATE TABLE `lt_gift` (
 */
 
 type LtGift struct {
-	Id int
-	Title string
-	PrizeNum int
-	LeftNum int
-	PrizeCode string
-	PrizeTime int
-	Img string
+	Id           int
+	Title        string
+	PrizeNum     int
+	LeftNum      int
+	PrizeCode    string
+	PrizeTime    int
+	Img          string
 	Displayorder int
-	Gtype int
-	Gdata string
-	TimeBegin int
-	TimeEnd int
-	PrizeData string
-	PrizeBegin int
-	PrizeEnd int
-	SysStatus int
-	SysCreated int
-	SysUpdated int
-	SysIp int
+	Gtype        int
+	Gdata        string
+	TimeBegin    int
+	TimeEnd      int
+	PrizeData    string
+	PrizeBegin   int
+	PrizeEnd     int
+	SysStatus    int
+	SysCreated   int
+	SysUpdated   int
+	SysIp        string
 }

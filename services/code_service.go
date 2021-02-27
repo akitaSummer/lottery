@@ -2,6 +2,8 @@ package services
 
 import (
 	"lottery/dao"
+	"lottery/datasource"
+
 	//"lottery/dataSource"
 	"lottery/models"
 )
@@ -23,7 +25,7 @@ type codeService struct {
 
 func NewCodeService() CodeService {
 	return &codeService{
-		//dao: dao.NewCodeDao(dataSource.NewMysqlMaster()),
+		dao: dao.NewCodeDao(datasource.NewDbMaster()),
 	}
 }
 

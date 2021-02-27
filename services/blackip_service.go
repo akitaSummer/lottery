@@ -2,11 +2,13 @@ package services
 
 import (
 	"lottery/dao"
+	"lottery/datasource"
+
 	//"lottery/dataSource"
 	"lottery/models"
 )
 
-type BlackIpService interface {
+type BlackipService interface {
 	GetAll() []models.LtBlackip
 	CountAll() int64
 	Get(id int) *models.LtBlackip
@@ -20,9 +22,9 @@ type blackipService struct {
 	dao *dao.BlackIpDao
 }
 
-func NewBlackipService() BlackIpService {
+func NewBlackipService() BlackipService {
 	return &blackipService{
-		//dao: dao.NewBlackIpDao(dataSource.NewMysqlMaster()),
+		dao: dao.NewBlackIpDao(datasource.NewDbMaster()),
 	}
 }
 
