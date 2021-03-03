@@ -38,4 +38,11 @@ func Configure(b *bootstrap.Bootstrapper) {
 		userDayService,
 	)
 	admin.Handle(new(controllers.AdminController))
+
+	adminGift := admin.Party("/gift")
+	adminGift.Router.Use(middleware.BasicAuth)
+	adminGift.Register(
+		giftService,
+	)
+	adminGift.Handle(new(controllers.AdminGiftController))
 }
