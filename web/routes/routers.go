@@ -45,4 +45,11 @@ func Configure(b *bootstrap.Bootstrapper) {
 		giftService,
 	)
 	adminGift.Handle(new(controllers.AdminGiftController))
+
+	adminCode := admin.Party("/code")
+	adminCode.Router.Use(middleware.BasicAuth)
+	adminCode.Register(
+		codeService,
+	)
+	adminGift.Handle(new(controllers.AdminCodeController))
 }

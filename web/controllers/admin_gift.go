@@ -143,12 +143,20 @@ func (c *AdminGiftController) PostSave() mvc.Result {
 }
 
 func (c *AdminGiftController) GetDelete() mvc.Result {
+	id, err := c.Ctx.URLParamInt("id")
+	if err == nil {
+		c.ServiceGift.Delete(id)
+	}
 	return mvc.Response{
 		Path: "/admin/gift",
 	}
 }
 
 func (c *AdminGiftController) GetReset() mvc.Result {
+	id, err := c.Ctx.URLParamInt("id")
+	if err == nil {
+		c.ServiceGift.Update(&models.LtGift{Id: id, SysStatus: 0}, []string{"sys_status"})
+	}
 	return mvc.Response{
 		Path: "/admin/gift",
 	}
