@@ -29,12 +29,12 @@ func (d *UserDao) Get(id int) *models.LtUser {
 
 }
 
-func (d *UserDao) GetAll() []models.LtUser {
+func (d *UserDao) GetAll(page, size int) []models.LtUser {
+
+	offset := (page - 1) * size
 	dataList := make([]models.LtUser, 0)
 
-	err := d.engine.
-		Desc("id").
-		Find(&dataList)
+	err := d.engine.Desc("id").Limit(size, offset).Find(&dataList)
 
 	if err != nil {
 		log.Println("black_user_dao.GetAll error=", err)

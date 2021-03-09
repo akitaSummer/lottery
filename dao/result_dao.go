@@ -29,16 +29,12 @@ func (d *ResultDao) Get(id int) *models.LtResult {
 
 }
 
-func (d *ResultDao) GetAll() []models.LtResult {
+func (d *ResultDao) GetAll(page, size int) []models.LtResult {
+	offset := (page - 1) * size
 	dataList := make([]models.LtResult, 0)
-
-	err := d.engine.
-		Desc("id").
-		Find(&dataList)
-
+	err := d.engine.Desc("id").Limit(size, offset).Find(&dataList)
 	if err != nil {
-		log.Println("Result_dao.GetAll error=", err)
-		return dataList
+		return nil
 	} else {
 		return dataList
 	}

@@ -9,7 +9,7 @@ import (
 )
 
 type BlackipService interface {
-	GetAll() []models.LtBlackip
+	GetAll(page, size int) []models.LtBlackip
 	CountAll() int64
 	Get(id int) *models.LtBlackip
 	Delete(id int) error
@@ -28,8 +28,8 @@ func NewBlackipService() BlackipService {
 	}
 }
 
-func (s *blackipService) GetAll() []models.LtBlackip {
-	return s.dao.GetAll()
+func (s *blackipService) GetAll(page, size int) []models.LtBlackip {
+	return s.dao.GetAll(page, size)
 }
 
 func (s *blackipService) CountAll() int64 {

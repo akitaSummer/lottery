@@ -9,7 +9,7 @@ import (
 )
 
 type UserService interface {
-	GetAll() []models.LtUser
+	GetAll(page, size int) []models.LtUser
 	CountAll() int64
 	Get(id int) *models.LtUser
 	Delete(id int) error
@@ -28,8 +28,8 @@ func NewUserService() UserService {
 	}
 }
 
-func (s *userService) GetAll() []models.LtUser {
-	return s.dao.GetAll()
+func (s *userService) GetAll(page, size int) []models.LtUser {
+	return s.dao.GetAll(page, size)
 }
 
 func (s *userService) CountAll() int64 {

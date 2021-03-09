@@ -52,4 +52,18 @@ func Configure(b *bootstrap.Bootstrapper) {
 		codeService,
 	)
 	adminGift.Handle(new(controllers.AdminCodeController))
+
+	adminResult := admin.Party("/result")
+	adminResult.Router.Use(middleware.BasicAuth)
+	adminResult.Register(
+		codeService,
+	)
+	adminResult.Handle(new(controllers.AdminResultController))
+
+	adminUser := admin.Party("/user")
+	adminUser.Router.Use(middleware.BasicAuth)
+	adminUser.Register(
+		codeService,
+	)
+	adminUser.Handle(new(controllers.AdminUserController))
 }

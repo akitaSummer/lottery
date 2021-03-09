@@ -29,12 +29,11 @@ func (d *BlackIpDao) Get(id int) *models.LtBlackip {
 
 }
 
-func (d *BlackIpDao) GetAll() []models.LtBlackip {
+func (d *BlackIpDao) GetAll(page, size int) []models.LtBlackip {
 	dataList := make([]models.LtBlackip, 0)
+	offset := (page - 1) * size
 
-	err := d.engine.
-		Desc("id").
-		Find(&dataList)
+	err := d.engine.Desc("id").Limit(size, offset).Find(&dataList)
 
 	if err != nil {
 		log.Println("black_ip_dao.GetAll error=", err)

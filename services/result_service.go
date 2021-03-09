@@ -9,7 +9,7 @@ import (
 )
 
 type ResultService interface {
-	GetAll() []models.LtResult
+	GetAll(page, size int) []models.LtResult
 	CountAll() int64
 	CountByGift(giftId int) int64
 	CountByUser(uid int) int64
@@ -31,8 +31,8 @@ func NewResultService() ResultService {
 	}
 }
 
-func (s *resultService) GetAll() []models.LtResult {
-	return s.dao.GetAll()
+func (s *resultService) GetAll(page, size int) []models.LtResult {
+	return s.dao.GetAll(page, size)
 }
 
 func (s *resultService) CountAll() int64 {
