@@ -16,10 +16,10 @@ func NewUserDayDao(engine *xorm.Engine) *UserDayDao {
 	return &UserDayDao{engine: engine}
 }
 
-func (this *UserDayDao) Get(id int) *models.LtUserday {
+func (d *UserDayDao) Get(id int) *models.LtUserday {
 	data := &models.LtUserday{Id: id}
 
-	ok, err := this.engine.Get(data)
+	ok, err := d.engine.Get(data)
 
 	if ok && err == nil {
 		return data
@@ -29,10 +29,10 @@ func (this *UserDayDao) Get(id int) *models.LtUserday {
 
 }
 
-func (this *UserDayDao) GetAll() []models.LtUserday {
+func (d *UserDayDao) GetAll() []models.LtUserday {
 	dataList := make([]models.LtUserday, 0)
 
-	err := this.engine.
+	err := d.engine.
 		Desc("id").
 		Find(&dataList)
 
@@ -44,8 +44,8 @@ func (this *UserDayDao) GetAll() []models.LtUserday {
 	}
 }
 
-func (this *UserDayDao) CountAll() int64 {
-	num, err := this.engine.Count(&models.LtUserday{})
+func (d *UserDayDao) CountAll() int64 {
+	num, err := d.engine.Count(&models.LtUserday{})
 	if err != nil {
 		return 0
 	} else {
@@ -54,25 +54,25 @@ func (this *UserDayDao) CountAll() int64 {
 }
 
 // 软删除
-func (this *UserDayDao) Delete(id int) error {
+func (d *UserDayDao) Delete(id int) error {
 	data := &models.LtUserday{Id: id, SysStatus: 1}
-	_, err := this.engine.Id(data.Id).Update(data)
+	_, err := d.engine.Id(data.Id).Update(data)
 	return err
 }
 
-func (this *UserDayDao) Update(data *models.LtUserday, columns []string) error {
-	_, err := this.engine.Id(data.Id).MustCols(columns...).Update(data)
+func (d *UserDayDao) Update(data *models.LtUserday, columns []string) error {
+	_, err := d.engine.Id(data.Id).MustCols(columns...).Update(data)
 	return err
 }
 
-func (this *UserDayDao) Insert(data *models.LtUserday) error {
-	_, err := this.engine.Insert(data)
+func (d *UserDayDao) Insert(data *models.LtUserday) error {
+	_, err := d.engine.Insert(data)
 	return err
 }
 
-func (this *UserDayDao) GetByUid(uid int) *models.LtUserday {
+func (d *UserDayDao) GetByUid(uid int) *models.LtUserday {
 	dataList := make([]models.LtUserday, 0)
-	err := this.engine.Where("uid=?", uid).
+	err := d.engine.Where("uid=?", uid).
 		Desc("id").
 		Limit(1).
 		Find(&dataList)
@@ -84,15 +84,19 @@ func (this *UserDayDao) GetByUid(uid int) *models.LtUserday {
 	}
 }
 
-func (this *UserDayDao) Search(uid int, day string) *models.LtUserday {
+func (d *UserDayDao) Search(uid, day int) []models.LtUserday {
 	dataList := make([]models.LtUserday, 0)
-	err := this.engine.Where("uid=?", uid).
-		Where("day=", day).
-		Limit(1).
+	err := d.engine.Where("uid=?", uid).
+		Where("day=?", day).
+		Desc("id").
 		Find(&dataList)
-	if err != nil || len(dataList) == 1 {
+	if err != nil {
 		return nil
-	} else {
-		return &dataList[0]
 	}
+	return dataList
+}
+
+func (d *UserDayDao) Create(data *models.LtUserday) error {
+	_, err := d.engine.Insert(data)
+	return err
 }

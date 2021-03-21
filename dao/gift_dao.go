@@ -3,6 +3,7 @@ package dao
 import (
 	"github.com/go-xorm/xorm"
 	"log"
+	"lottery/comm"
 	"lottery/models"
 )
 
@@ -64,4 +65,21 @@ func (d *GiftDao) Update(data *models.LtGift, columns []string) error {
 func (d *GiftDao) Create(data *models.LtGift) error {
 	_, err := d.engine.Insert(data)
 	return err
+}
+
+func (d *GiftDao) GetAllUse() []models.LtGift {
+	now := comm.NowUnix()
+	datalist := make([]models.LtGift, 0)
+	err := d.engine.Cols("id", "title", "prize_num", "left_num", "prize_code", "prize_time", "img", "displayorder", "gtype", "gdata").
+		Desc("gtype").
+		Asc("displayorder").
+		Where("prize_num>=?", 0).
+		Where("sys_status=?", 0).
+		Where("time_begin<=?", now).
+		Where("time_end>=?", now).
+		Find(&datalist)
+	if err != nil {
+		log.Println("gift_dao.GetAllUse err=", err)
+	}
+	return datalist
 }

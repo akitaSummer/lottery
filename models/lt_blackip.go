@@ -18,6 +18,7 @@ CREATE TABLE `lt_blackip` (
 type LtBlackip struct {
 	Id         int
 	Ip         string
+	BlackTime  int
 	SysUpdated int
 	SysCreated int
 	SysStatus  int

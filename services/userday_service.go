@@ -3,9 +3,12 @@ package services
 import (
 	//"fmt"
 
+	"fmt"
 	//"lottery/comm"
 	"lottery/dao"
 	"lottery/datasource"
+	"strconv"
+	"time"
 
 	//"lottery/dataSource"
 	"lottery/models"
@@ -19,7 +22,8 @@ type UserDayService interface {
 	Update(data *models.LtUserday, columns []string) error
 	Insert(data *models.LtUserday) error
 	GetByUid(uid int) *models.LtUserday
-	//GetUserToday(uid int) *models.LtUserday
+	GetUserToday(uid int) *models.LtUserday
+	Create(user *models.LtUserday) error
 }
 
 type userDayService struct {
@@ -60,8 +64,18 @@ func (s *userDayService) GetByUid(uid int) *models.LtUserday {
 	return s.dao.GetByUid(uid)
 }
 
-//func (s *userDayService) GetUserToday(uid int) *models.LtUserday {
-//	y, m, d := comm.NowTime().Date()
-//	strDay := fmt.Sprintf("%d%02d%02d", y, m, d)
-//	return s.dao.Search(uid, strDay)
-//}
+func (s userDayService) GetUserToday(uid int) *models.LtUserday {
+	y, m, d := time.Now().Date()
+	strDate := fmt.Sprintf("%d%02d%02d", y, m, d)
+	day, _ := strconv.Atoi(strDate)
+	list := s.dao.Search(uid, day)
+	if list != nil && len(list) > 0 {
+		return &list[0]
+	} else {
+		return nil
+	}
+}
+
+func (u userDayService) Create(user *models.LtUserday) error {
+	return u.dao.Create(user)
+}
