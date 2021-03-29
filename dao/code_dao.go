@@ -77,3 +77,18 @@ func (d *CodeDao) Delete(id int) error {
 	_, err := d.engine.Id(data.Id).Update(data)
 	return err
 }
+
+func (d *CodeDao) UpdateByCode(data *models.LtCode, columns []string) error {
+	_, err := d.engine.Where("code=?", data.Code).MustCols(columns...).Update(data)
+	return err
+}
+
+func (d *CodeDao) NextUsingCode(giftId, codeId int) *models.LtCode {
+	datalist := make([]models.LtCode, 0)
+	err := d.engine.Where("gift_id=?", giftId).Where("sys_status=?", 0).Where("id>?", codeId).Asc("id").Limit(1).Find(datalist)
+	if err != nil || len(datalist) < 1 {
+		return nil
+	} else {
+		return &datalist[0]
+	}
+}

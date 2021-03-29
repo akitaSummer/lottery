@@ -16,6 +16,7 @@ type UserService interface {
 	Update(data *models.LtUser, columns []string) error
 	Insert(data *models.LtUser) error
 	GetByUid(uid int) *models.LtUser
+	Create(user *models.LtUser) error
 }
 
 type userService struct {
@@ -54,4 +55,8 @@ func (s *userService) Insert(data *models.LtUser) error {
 
 func (s *userService) GetByUid(uid int) *models.LtUser {
 	return s.dao.GetByUid(uid)
+}
+
+func (s *userService) Create(user *models.LtUser) error {
+	return s.dao.Create(user)
 }

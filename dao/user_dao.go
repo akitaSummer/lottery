@@ -83,3 +83,8 @@ func (d *UserDao) GetByUid(uid int) *models.LtUser {
 		return &dataList[0]
 	}
 }
+
+func (d *UserDao) Create(user *models.LtUser) error {
+	_, err := d.engine.Insert(user)
+	return err
+}

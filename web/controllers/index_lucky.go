@@ -2,6 +2,7 @@ package controllers
 
 import (
 	"fmt"
+	"log"
 	"lottery/comm"
 	"lottery/conf"
 	"lottery/models"
@@ -76,8 +77,45 @@ func (c *IndexController) GetLucky() map[string]interface{} {
 		return rs
 	}
 	// 有限制奖品发放
+	if prizeGift.PrizeNum > 0 {
+		ok = utils.PrizeGift(prizeGift.Id, prizeGift.LeftNum)
+		if !ok {
+			rs["code"] = 207
+			rs["msg"] = "很遗憾，没有中奖"
+		}
+	}
 	// 不同编码优惠券发放
+	if prizeGift.Gtype == conf.GtypeCodeDiff {
+		code := utils.PrizeCodeDiff(prizeGift.Id, c.ServiceCode)
+		if code == "" {
+			rs["code"] = 208
+			rs["msg"] = "很遗憾，没有中奖，请下次再试"
+			return rs
+		}
+		prizeGift.Gdata = code
+	}
 	// 记录中奖记录
+	result := models.LtResult{
+		GiftId:     prizeGift.Id,
+		GiftName:   prizeGift.Title,
+		GiftType:   prizeGift.Gtype,
+		Uid:        loginuser.Uid,
+		Username:   loginuser.Username,
+		PrizeCode:  prizeCode,
+		GiftData:   prizeGift.Gdata,
+		SysStatus:  0,
+		SysCreated: comm.NowUnix(),
+		SysIp:      ip,
+	}
+	err := c.ServiceResult.Create(&result)
+	if err != nil {
+		log.Println("index_lucky.GetLucky ServiceResult.Create ", result, ", error=", err)
+		rs["code"] = 209
+		rs["msg"] = "很遗憾，没有中奖，请下次再试"
+	}
+	if prizeGift.Gtype == conf.GtypeGiftLarge {
+		c.prizeLarge(ip, loginuser, userInfo, blackipInfo)
+	}
 	// 返回中奖结果
 
 	return rs

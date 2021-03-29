@@ -16,8 +16,8 @@ var DbMasterList = []DbConfig{
 		Host:     "127.0.0.1",
 		Port:     3306,
 		User:     "root",
-		Pwd:      "186liuyuJQK",
-		Database: "lottery",
+		Pwd:      "",
+		Database: "",
 		IsRuning: true,
 	},
 }

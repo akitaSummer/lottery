@@ -19,6 +19,7 @@ type ResultService interface {
 	Insert(data *models.LtResult) error
 	SearchByGift(giftId, page, size int) []models.LtResult
 	SearchByUser(uid, page, size int) []models.LtResult
+	Create(result *models.LtResult) error
 }
 
 type resultService struct {
@@ -68,4 +69,8 @@ func (s *resultService) SearchByGift(giftId, page, size int) []models.LtResult {
 
 func (s *resultService) SearchByUser(uid, page, size int) []models.LtResult {
 	return s.dao.SearchByUser(uid, page, size)
+}
+
+func (r resultService) Create(result *models.LtResult) error {
+	return r.dao.Create(result)
 }

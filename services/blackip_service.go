@@ -16,6 +16,7 @@ type BlackipService interface {
 	Update(data *models.LtBlackip, columns []string) error
 	Insert(data *models.LtBlackip) error
 	GetByIp(ip string) *models.LtBlackip
+	Create(blackip *models.LtBlackip) error
 }
 
 type blackipService struct {
@@ -54,4 +55,8 @@ func (s *blackipService) Insert(data *models.LtBlackip) error {
 
 func (s *blackipService) GetByIp(ip string) *models.LtBlackip {
 	return s.dao.GetByIp(ip)
+}
+
+func (s *blackipService) Create(blackip *models.LtBlackip) error {
+	return s.dao.Create(blackip)
 }

@@ -17,8 +17,8 @@ type CodeService interface {
 	Delete(id int) error
 	Update(code *models.LtCode, columns []string) error
 	Create(code *models.LtCode) error
-	//NextUsingCode(giftId, codeId int) *models.LtCode
-	//UpdateByCode(code *models.LtCode, columns []string) error
+	NextUsingCode(giftId, codeId int) *models.LtCode
+	UpdateByCode(code *models.LtCode, columns []string) error
 }
 
 type codeService struct {
@@ -61,10 +61,10 @@ func (c codeService) Create(code *models.LtCode) error {
 	return c.dao.Create(code)
 }
 
-//func (c *codeService) UpdateByCode(data *models.LtCode, columns []string) error {
-//	return c.dao.UpdateByCode(data, columns)
-//}
-//
-//func (c *codeService) NextUsingCode(giftId, codeId int) *models.LtCode {
-//	return c.dao.NextUsingCode(giftId, codeId)
-//}
+func (c *codeService) UpdateByCode(data *models.LtCode, columns []string) error {
+	return c.dao.UpdateByCode(data, columns)
+}
+
+func (c *codeService) NextUsingCode(giftId, codeId int) *models.LtCode {
+	return c.dao.NextUsingCode(giftId, codeId)
+}

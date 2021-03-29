@@ -82,3 +82,8 @@ func (d *BlackIpDao) GetByIp(ip string) *models.LtBlackip {
 		return &dataList[0]
 	}
 }
+
+func (d *BlackIpDao) Create(data *models.LtBlackip) error {
+	_, err := d.engine.Insert(data)
+	return err
+}

@@ -16,6 +16,8 @@ type GiftService interface {
 	Update(data *models.LtGift, columns []string) error
 	Create(data *models.LtGift) error
 	GetAllUse() []models.ObjGiftPrize
+	DecrLeftNum(id, num int) (int64, error)
+	IncrLeftNum(id, num int) (int64, error)
 }
 
 type giftService struct {
@@ -85,4 +87,12 @@ func (s *giftService) GetAllUse() []models.ObjGiftPrize {
 	} else {
 		return []models.ObjGiftPrize{}
 	}
+}
+
+func (s *giftService) DecrLeftNum(id, num int) (int64, error) {
+	return s.dao.DecrLeftNum(id, num)
+}
+
+func (s *giftService) IncrLeftNum(id, num int) (int64, error) {
+	return s.dao.IncrLeftNum(id, num)
 }

@@ -121,3 +121,8 @@ func (d *ResultDao) SearchByUser(uid, page, size int) []models.LtResult {
 		return dataList
 	}
 }
+
+func (d *ResultDao) Create(result *models.LtResult) error {
+	_, err := d.engine.Insert(result)
+	return err
+}
